@@ -1,0 +1,30 @@
+.resultPage {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+.resultPage h1 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.resultPage p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.resultPage hr {
+  margin: 15px 0;
+  border: 0.5px solid #ddd;
+}
+
+.productsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
