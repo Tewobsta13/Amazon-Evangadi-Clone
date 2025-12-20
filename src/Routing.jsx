@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Auth from "./Pages/Auth/Auth.jsx";
 import Cart from "./Pages/Cart/Cart";
 import Landing from "./Pages/Landing/Landing";
@@ -9,17 +9,15 @@ import Result from "./Pages/Result/Result";
 
 function Routing() {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/category/:categoryName" element={<Result />} />
-        <Route path="/products/:productId" element={<ProductDetail />} />
-        <Route path="/payments" element={<Payment />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/auth" element={<Auth />} />
+      <Route path="/orders" element={<Orders />} />
+      <Route path="/category/:categoryName" element={<Result />} />
+      <Route path="/products/:productId" element={<ProductDetail />} />
+      <Route path="/payments" element={<Payment />} />
+    </Routes>
   );
 }
 

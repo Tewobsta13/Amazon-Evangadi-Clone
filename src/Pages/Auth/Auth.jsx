@@ -1,53 +1,143 @@
-import { Link } from "react-router-dom";
-import styles from "./Auth.module.css";
+import React, { useState, useContext } from "react";
+import classes from "./Auth.module.css";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { auth } from "../../utility/firebase";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { DataContext } from "../../Components/DataProvider/DataProvider";
+import { Type } from "../../utility/action.type";
+import { BeatLoader, ClipLoader } from "react-spinners";
 
 function Auth() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const [{ user }, dispatch] = useContext(DataContext);
+  // console.log(user);
+  const navigate = useNavigate();
+  const navStateData = useLocation();
+  const [loading, setLoading] = useState({
+    signIn: false,
+    signUp: false,
+  });
+
+  const authHandler = async (e) => {
+    e.preventDefault();
+    //  console.log(e.target.name)
+
+    if (e.target.name == "signin") {
+      setLoading({ ...loading, signIn: true });
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userInfo) => {
+          dispatch({
+            type: Type.SET_USER,
+            user: userInfo.user,
+          });
+          setLoading({ ...loading, signIn: false });
+          navigate(navStateData?.state?.redirect || "/", { replace: true });
+        })
+        .catch((err) => {
+          setError(err.message); // Update error state with the error message from err
+          setLoading({ ...loading, signIn: false });
+        });
+    } else {
+      setLoading({ ...loading, signUp: true });
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userInfo) => {
+          dispatch({
+            type: Type.SET_USER,
+            user: userInfo.user,
+          });
+          setLoading({ ...loading, signUp: false });
+          navigate(navStateData?.state?.redirect || "/", { replace: true });
+        })
+        .catch((err) => {
+          setError(err.message);
+          setLoading({ ...loading, signUp: false });
+        });
+    }
+  };
+
   return (
-    <section className={styles.auth}>
-      {/* Amazon Logo */}
-      <Link to="/" className={styles.authLogo}>
+    <section className={classes.login}>
+      <Link to="/">
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-amazon_logo.svg.png"
-          alt="Amazon Logo"
+          src="https://cdn.icon-icons.com/icons2/2699/PNG/512/amazon_logo_icon_169612.png"
+          alt="amazon-logo"
         />
       </Link>
-
-      {/* Sign In Card */}
-      <div className={styles.authContainer}>
-        <h1>Sign in</h1>
-
-        {/* Sign In Form */}
-        <form>
-          <div className={styles.authField}>
+      <div className={classes.login__container}>
+        <h1>Sign In </h1>
+        {navStateData?.state?.msg && (
+          <small
+            style={{
+              padding: "5px",
+              textAlign: "center",
+              color: "red",
+              fontWeight: "bold",
+            }}
+          >
+            {navStateData?.state?.msg}
+          </small>
+        )}
+        <form action="">
+          <div>
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" />
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              id="email"
+            />
           </div>
 
-          <div className={styles.authField}>
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
+          <div>
+            <label htmlFor="password">PassWord</label>
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              id="password"
+            />
           </div>
-
-          {/* Sign In Button */}
-          <button type="submit" className={styles.authSigninBtn}>
-            Sign In
+          <button
+            type="submit"
+            name="signin"
+            onClick={authHandler}
+            className={classes.login__signInButton}
+          >
+            {loading.signIn ? (
+              <ClipLoader color="#000" size={15}></ClipLoader>
+            ) : (
+              " Sign In"
+            )}
           </button>
         </form>
-
-        {/* Terms */}
-        <p className={styles.authTerms}>
-          By continuing, you agree to AMAZON FAKE CLONE Conditions of Use and
-          Sale. Please see our Privacy Notice, Cookies Notice, and
+        <p>
+          By signing-in you are agree to the AMAZON FAKE CLONE Conditions of use
+          & Sale. please see our Privacy Notice, our Cookies Notice and our
           Interest-Based Ads Notice.
         </p>
-
-        {/* Create Account */}
-        <button className={styles.authRegisterBtn}>
-          Create your Amazon Account
+        <button
+          type="submit"
+          name="signup"
+          onClick={authHandler}
+          className={classes.login__registerButton}
+        >
+          {loading.signUp ? (
+            <ClipLoader color="#000" size={15}></ClipLoader>
+          ) : (
+            " Create your Amazon Account"
+          )}
         </button>
+        {error && (
+          <small style={{ padding: "10px", color: "red" }}>{error}</small>
+        )}
       </div>
     </section>
   );
 }
-
 export default Auth;

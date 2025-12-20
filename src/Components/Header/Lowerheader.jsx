@@ -1,35 +1,28 @@
-import { AiOutlineMenu } from "react-icons/ai";
-import styles from "./Header.module.css";
+import React from "react";
+import { MdOutlineMenu } from "react-icons/md"; // Importing a menu icon from react-icons
+import classes from "./Header.module.css"; // Importing CSS module for styling specific to the LowerHeader component
 
-const LowerHeader = () => {
+// Function component that renders the lower part of the header
+function LowerHeader() {
   return (
-    <div className={styles.lowerHeader}>
+    <div className={classes.lower__container}>
+      {/* Container for lower header items */}
       <ul>
-        <li className={styles.hoverable}>
-          <AiOutlineMenu />
-          <p>All</p>
+        {/* List of navigation options */}
+        <li>
+          {/* Menu icon and "All" option */}
+          <MdOutlineMenu /> {/* Menu icon */}
+          <p>All</p> {/* "All" label next to the icon */}
         </li>
-        <li className={styles.hoverable}>
-          <a href="/">Today's Deals</a>
-        </li>
-        <li className={styles.hoverable}>
-          <a href="/">Prime Video</a>
-        </li>
-        <li className={styles.hoverable}>
-          <a href="/">Registry</a>
-        </li>
-        <li className={styles.hoverable}>
-          <a href="/">Gift Cards</a>
-        </li>
-        <li className={styles.hoverable}>
-          <a href="/">Customer Service</a>
-        </li>
-        <li className={styles.hoverable}>
-          <a href="/">Sell</a>
-        </li>
+        {/* Other navigation links */}
+        <li>Today's Deals</li> {/* Static link for "Today's Deals" */}
+        <li>Customer Services</li> {/* Static link for "Customer Services" */}
+        <li>Registry</li> {/* Static link for "Registry" */}
+        <li>Gift Cards</li> {/* Static link for "Gift Cards" */}
+        <li>Sell</li> {/* Static link for "Sell" */}
       </ul>
     </div>
   );
-};
+}
 
-export default LowerHeader;
+export default LowerHeader; // Export the component for use in other parts of the application

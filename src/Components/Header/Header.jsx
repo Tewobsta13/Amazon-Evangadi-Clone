@@ -1,86 +1,91 @@
-import { useContext } from "react";
-import { BiCart } from "react-icons/bi";
-import { BsSearch } from "react-icons/bs";
-import { SlLocationPin } from "react-icons/sl";
+import React, { useContext } from "react";
+import classes from "./header.module.css";
 import { Link } from "react-router-dom";
+import { SlLocationPin } from "react-icons/sl";
+import { BsSearch } from "react-icons/bs";
+import LowerHeader from "./LowerHeader";
+import { BiCart } from "react-icons/bi";
+
+import { auth } from "../../utility/firebase";
 import { DataContext } from "../DataProvider/DataProvider";
-import styles from "./Header.module.css";
-import LowerHeader from "./Lowerheader";
 
 const Header = () => {
-  const { state } = useContext(DataContext);
-  const { basket } = state;
-
-  const totalItems = basket.reduce((sum, item) => sum + item.amount, 0);
+  const [{ user, basket }, dispatch] = useContext(DataContext);
+  const totalItem = basket?.reduce((amount, item) => {
+    return item.amount + amount;
+  }, 0);
 
   return (
-    <div className={styles.fixed}>
-      <header className={styles.header}>
-        {/* LEFT */}
-        <div className={styles.headerLeft}>
-          <Link to="/" className={`${styles.logo} ${styles.hoverable}`}>
-            <img
-              src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
-              alt="Amazon"
-            />
-          </Link>
-
-          <div className={`${styles.deliverTo} ${styles.hoverable}`}>
-            <SlLocationPin size={18} />
-            <div>
-              <p className={styles.smallText}>Deliver to</p>
-              <span className={styles.boldText}>Ethiopia</span>
+    <section className={classes.fixed}>
+      <section>
+        <div className={classes.header__container}>
+          <div className={classes.logo__container}>
+            <Link to="/">
+              <img
+                src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
+                alt="amazon logo"
+              />
+            </Link>
+            <div className={classes.delivery}>
+              <span>
+                <SlLocationPin />
+              </span>
+              <div>
+                <p>Deliver to</p>
+                <span>Ethiopia</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* SEARCH */}
-        <div className={styles.searchBox}>
-          <select>
-            <option>All</option>
-          </select>
-          <input placeholder="Search product" />
-          <button className={styles.searchBtn}>
-            <BsSearch size={20} />
-          </button>
-        </div>
-
-        {/* RIGHT */}
-        <div className={styles.headerRight}>
-          <div className={`${styles.langBox} ${styles.hoverable}`}>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg"
-              alt="flag"
-            />
-            <span>EN</span>
+          <div className={classes.search}>
+            <select name="" id="">
+              <option value="">All</option>
+            </select>
+            <input type="text" />
+            <BsSearch size={38} />
           </div>
 
-          <Link
-            to="/auth"
-            className={`${styles.headerLink} ${styles.hoverable}`}
-          >
-            <p className={styles.smallText}>Hello, sign in</p>
-            <span className={styles.boldText}>Account & Lists</span>
-          </Link>
+          <div className={classes.order__container}>
+            <Link to="" className={classes.language}>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1024px-Flag_of_the_United_States.svg.png"
+                alt=""
+              />
 
-          <Link
-            to="/orders"
-            className={`${styles.headerLink} ${styles.hoverable}`}
-          >
-            <p className={styles.smallText}>Returns</p>
-            <span className={styles.boldText}>& Orders</span>
-          </Link>
-
-          <Link to="/cart" className={`${styles.cart} ${styles.hoverable}`}>
-            <BiCart size={32} />
-            <span className={styles.cartCount}>{totalItems}</span>
-            <p>Cart</p>
-          </Link>
+              <select name="" id="">
+                <option value="">EN</option>
+              </select>
+            </Link>
+            <Link to={!user && "/auth"}>
+              <div>
+                {user ? (
+                  <>
+                    <p>Hello {user?.email?.split("@")[0]}</p>
+                    <span onClick={() => (user ? auth.signOut() : null)}>
+                      Sign Out
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <p>Sign In</p>
+                    <span>Account & Lists</span>
+                  </>
+                )}
+              </div>
+            </Link>
+            <Link to="/orders">
+              <p>returns</p>
+              <span>& Orders</span>
+            </Link>
+            <Link to="/cart" className={classes.cart}>
+              <BiCart size={35} />
+              <span>{totalItem}</span>
+            </Link>
+          </div>
         </div>
-      </header>
-
+      </section>
       <LowerHeader />
-    </div>
+    </section>
   );
 };
 
