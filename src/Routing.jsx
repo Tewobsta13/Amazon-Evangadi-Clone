@@ -1,9 +1,9 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router, // Use HashRouter instead of BrowserRouter
   Routes,
   Route,
-  redirect,
+  Navigate, // 'redirect' doesn't exist in react-router-dom v6, use Navigate instead
 } from "react-router-dom";
 import Landing from "./Pages/Landing/Landing";
 import Auth from "./Pages/Auth/Auth";
