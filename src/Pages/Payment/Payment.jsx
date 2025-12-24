@@ -1,15 +1,15 @@
 import React, { useContext, useState } from "react";
 import classes from "./Payment.module.css";
-import { DataContext } from "../../components/DataProvider/DataProvider";
-import ProductCard from "../../components/Product/ProductCard";
+import { DataContext } from "../../Components/DataProvider/DataProvider";
+import ProductCard from "../../Components/Product/ProductCard";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
-import CurrencyFormat from "../../components/CurrencyFormat/CurrencyFormat";
+import CurrencyFormat from "../../Components/CurrencyFormat/CurrencyFormat";
 import { axiosInstance } from "../../Api/axios";
 import { ClipLoader } from "react-spinners";
 import { db } from "../../utility/firebase";
 import { useNavigate } from "react-router-dom";
 import { Type } from "../../utility/action.type";
-import Layout from "../../components/Layout/Layout";
+import Layout from "../../Components/Layout/Layout";
 
 function Payment() {
   const [{ user, basket }, dispatch] = useContext(DataContext);
