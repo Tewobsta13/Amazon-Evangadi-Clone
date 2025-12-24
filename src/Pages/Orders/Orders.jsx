@@ -3,7 +3,7 @@ import classes from "./Orders.module.css";
 import { db } from "../../utility/firebase";
 import { DataContext } from "../../Components/DataProvider/DataProvider";
 import ProductCard from "../../Components/Product/ProductCard";
-import Layout from "../../components/Layout/Layout";
+import Layout from "../../Components/Layout/Layout";
 
 function Orders() {
   const [{ user }, dispatch] = useContext(DataContext);

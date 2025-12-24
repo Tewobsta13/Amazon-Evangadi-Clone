@@ -5,13 +5,13 @@ import {
   Route,
   redirect,
 } from "react-router-dom";
-import Landing from "./pages/Landing/Landing";
-import Auth from "./pages/Auth/Auth";
+import Landing from "./Pages/Landing/Landing";
+import Auth from "./Pages/Auth/Auth";
 
-import Orders from "./pages/Orders/Orders";
-import Cart from "./pages/Cart/Cart";
+import Orders from "./Pages/Orders/Orders";
+import Cart from "./Pages/Cart/Cart";
 
-import ProductDetail from "./pages/ProductDetail/ProductDetail";
+import ProductDetail from "./Pages/ProductDetail/ProductDetail";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
