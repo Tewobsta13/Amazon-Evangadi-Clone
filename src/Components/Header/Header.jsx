@@ -3,7 +3,7 @@ import classes from "./Header.module.css";
 import { Link } from "react-router-dom";
 import { SlLocationPin } from "react-icons/sl";
 import { BsSearch } from "react-icons/bs";
-import LowerHeader from "./LowerHeader";
+import LowerHeader from "./Lowerheader";
 import { BiCart } from "react-icons/bi";
 
 import { auth } from "../../utility/firebase";
