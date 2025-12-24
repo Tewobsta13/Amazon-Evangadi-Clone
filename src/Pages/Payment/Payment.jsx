@@ -4,7 +4,7 @@ import { DataContext } from "../../Components/DataProvider/DataProvider";
 import ProductCard from "../../Components/Product/ProductCard";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import CurrencyFormat from "../../Components/CurrencyFormat/CurrencyFormat";
-import { axiosInstance } from "../../Api/axios";
+import { axiosInstance } from "../../api/axios";
 import { ClipLoader } from "react-spinners";
 import { db } from "../../utility/firebase";
 import { useNavigate } from "react-router-dom";
