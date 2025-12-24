@@ -1,6 +1,6 @@
-import Carousel from "../../components/Carousel/Carousel.jsx";
+import Carousel from "../../Components/Carousel/Carousel.jsx";
 
-import Layout from "../../components/Layout/Layout";
+import Layout from "../../Components/Layout/Layout";
 import Product from "../../Components/Product/Product.jsx";
 import Category from "../../Components/Category/Category.jsx";
 function Landing() {
