@@ -18,7 +18,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import Payment from "./Pages/Payment/Payment";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
-import Result from "./Pages/Result`/Result";
+import Result from "./Pages/Result/Result";
 
 const stripePromise = loadStripe(
   "pk_test_51SgREcH9QkdmFXkJcVWKuZi2HSvPgqnR3dUANljL1VNY7OyJgaetbBO5pehJK14NZDuPYlla070N9H9jW1LXWVYc00GbMXaHPi"
